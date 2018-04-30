@@ -1,0 +1,27 @@
+### glog 使用简单
+
+
+flag.Parse()    // 1
+
+glog.Info("This is a Info log")         // 2
+glog.Warning("This is a Warning log")
+glog.Error("This is a Error log")
+
+glog.V(1).Infoln("level 1")     // 3
+glog.V(2).Infoln("level 2")
+
+glog.Flush()    // 4
+
+go run server.go -log_dir="log" -v=2  -stderrthreshold="FATAL"
+
+比如 -v=3  就会输出 v(1),v(2),v(3)的日志,是一个很不错的功能
+
+
+
+### 修改的地方
+    * 删除每个文件头部的格式输出
+    * 修改日志格式
+
+
+  会记录所有日志,只能根据 v 来区分
+  为了让标准输出尽量少的输出 日志级别只能设置 FATAL
