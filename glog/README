@@ -1,4 +1,5 @@
 ### glog
+日志级别 INFO,WARNING,ERROR,FATAL
 
 
 ### 改后版本使用方式

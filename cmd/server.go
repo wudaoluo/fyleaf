@@ -2,6 +2,8 @@ package main
 
 import (
 	"fyleaf/glog"
+	"fmt"
+	"fyleaf/models/mongodb"
 )
 
 func main() {
@@ -18,5 +20,22 @@ func main() {
 	glog.V(2).Infoln("level 2")
 
 	glog.Flush()    // 4
+
+
+	//for {
+	//	time.Sleep(10*time.Second)
+	//	newfunc.GetInfo()
+	//	os.Exit(0)
+	//}
+
+	c, err := mongodb.Dial("10.211.55.4", 100)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer c.Close()
+
+
+
 
 }
