@@ -1,12 +1,13 @@
 package main
 
 import (
-	"flag"
 	"fyleaf/glog"
-	)
+)
 
 func main() {
-	flag.Parse()    // 1
+	//flag.Parse()
+	glog.Init("a","log",2)
+	    // 1
 
 
 	glog.Info("This is a Info log")         // 2

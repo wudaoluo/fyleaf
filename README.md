@@ -2,8 +2,8 @@
 
 
 ### 计划实现的功能
-    log --> glog(改成按小时分割)
-    去掉 grpc
+    log --> glog，按大小分割，每个文件100MB
+    去掉 chanrpc
     去掉 cluster
     去掉 recordile
     增加 etcd

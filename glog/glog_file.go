@@ -20,7 +20,6 @@ package glog
 
 import (
 	"errors"
-	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -29,20 +28,19 @@ import (
 )
 
 // MaxSize is the maximum size of a log file in bytes.
-var MaxSize uint64 = 1024*1024*100  //100MB
+
 
 // logDirs lists the candidate directories for new log files.
 var logDirs []string
 
 // If non-empty, overrides the choice of directory in which to write logs.
 // See createLogDirs for the full list of possible destinations.
-var logDir = flag.String("log_dir", "", "If non-empty, write log files in this directory")
+
 
 func createLogDirs() {
-	os.MkdirAll(*logDir,0775)  //自动创建目录
-	if *logDir != "" {
-
-		logDirs = append(logDirs, *logDir)
+	os.MkdirAll(logDir,0775)  //自动创建目录
+	if logDir != "" {
+		logDirs = append(logDirs, logDir)
 	}
 	logDirs = append(logDirs, os.TempDir())
 }

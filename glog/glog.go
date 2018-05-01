@@ -74,7 +74,6 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"flag"
 	"fmt"
 	"io"
 	stdLog "log"
@@ -395,42 +394,6 @@ type flushSyncWriter interface {
 	io.Writer
 }
 
-func init() {
-	flag.BoolVar(&logging.toStderr, "logtostderr", false, "log to standard error instead of files")
-	flag.BoolVar(&logging.alsoToStderr, "alsologtostderr", false, "log to standard error as well as files")
-	flag.Var(&logging.verbosity, "v", "log level for V logs")
-	flag.Var(&logging.stderrThreshold, "stderrthreshold", "logs at or above this threshold go to stderr")
-	flag.Var(&logging.vmodule, "vmodule", "comma-separated list of pattern=N settings for file-filtered logging")
-	flag.Var(&logging.traceLocation, "log_backtrace_at", "when logging hits line file:N, emit a stack trace")
-
-	// Default stderrThreshold is ERROR.
-	logging.stderrThreshold = errorLog
-
-	logging.setVState(0, nil, false)
-	go logging.flushDaemon()
-}
-
-//var logDir string
-//var MaxSize uint64
-//func StartInit(level,logdir string) {
-//	logging.toStderr = false
-//	logging.alsoToStderr = false
-//	MaxSize = 1048576
-//	logDir = logdir
-//	switch level {
-//	case "INFO":
-//		logging.stderrThreshold = infoLog
-//	case "WARNING":
-//		logging.stderrThreshold = warningLog
-//	case "ERROR":
-//		logging.stderrThreshold = errorLog
-//	case "FATAL":
-//		logging.stderrThreshold = fatalLog
-//	}
-//
-//	logging.setVState(0, nil, false)
-//	go logging.flushDaemon()
-//}
 
 
 
@@ -698,10 +661,11 @@ func (l *loggingT) output(s severity, buf *buffer, file string, line int, alsoTo
 		}
 	}
 	data := buf.Bytes()
-	if !flag.Parsed() {
-		os.Stderr.Write([]byte("ERROR: logging before flag.Parse: "))
-		os.Stderr.Write(data)
-	} else if l.toStderr {
+	//if !flag.Parsed() {
+	//	os.Stderr.Write([]byte("ERROR: logging before flag.Parse: "))
+	//	os.Stderr.Write(data)
+	//} else
+	if l.toStderr {
 		os.Stderr.Write(data)
 	} else {
 		if alsoToStderr || l.alsoToStderr || s >= l.stderrThreshold.get() {
