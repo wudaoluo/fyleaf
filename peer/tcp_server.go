@@ -87,23 +87,27 @@ func (server *TCPServer) run() {
 		}
 		tempDelay = 0
 
+		//在同一个goroutine，可以减少并发的竞争
+		//连接超过最大值，释放连接
+		if atomic.LoadInt32(&server.connCount) >= server.MaxConnNum {
+			conn.Close()
+			glog.Warning("too many connections")
+			continue
+		}
+
+		atomic.AddInt32(&server.connCount, 1)
 
 		go server.handle(conn)
+
+		go func() {
+
+		}()
 	}
 
 }
 
 
 func (server *TCPServer) handle(conn net.Conn) {
-	atomic.AddInt32(&server.connCount, 1)
-	//连接超过最大值，释放连接，减少当前连接数(server.connCount)
-	if atomic.LoadInt32(&server.connCount) >= server.MaxConnNum {
-		conn.Close()
-		atomic.AddInt32(&server.connCount, -1)
-		glog.Warning("too many connections")
-		return
-	}
-
 	//TODO 暂时不知道这个有啥鸟用
 	server.conns[conn] = struct{}{}
 
