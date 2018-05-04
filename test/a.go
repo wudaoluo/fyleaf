@@ -17,13 +17,28 @@ func main() {
 	go func() {
 
 		for {
+
 			n++
 			//atomic.StoreInt32(&connCount, 0)
 			atomic.AddInt32(&connCount, 1)
-			//atomic.AddInt32(&connCount, -1)
-			//atomic.LoadInt32(&connCount)
-			//fmt.Println(atomic.LoadInt32(&connCount))
-			//time.Sleep(time.Microsecond * 5)
+
+			if atomic.LoadInt32(&connCount) > 1000000000 {
+				return
+			}
+			//go func() {
+			//	n++
+			//	//atomic.StoreInt32(&connCount, 0)
+			//	atomic.AddInt32(&connCount, 1)
+			//
+			//	if atomic.LoadInt32(&connCount) > 1000000000 {
+			//		return
+			//	}
+			//	//atomic.AddInt32(&connCount, -1)
+			//	//atomic.LoadInt32(&connCount)
+			//	//fmt.Println(atomic.LoadInt32(&connCount))
+			//	//time.Sleep(time.Microsecond * 5)
+			//}()
+
 		}
 
 	}()
