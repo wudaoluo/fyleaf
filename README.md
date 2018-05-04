@@ -21,7 +21,12 @@
 ### 计划使用teleport 的设计方式
 https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_framework.png
 
-
+# 修改日志
+### 2018.5.1
+    添加 glog
+    
+### 2018.5.4 
+    添加 glog 日志定期清除功能和框架错误码
 
 ### 融合进框架的库
      github.com/xuri/glc     glog日志清除,修改
