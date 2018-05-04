@@ -21,3 +21,8 @@
 ### 计划使用teleport 的设计方式
 https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_framework.png
 
+
+
+### 融合进框架的库
+     github.com/xuri/glc     glog日志清除,修改
+     github.com/golang/glog  日志库,修改

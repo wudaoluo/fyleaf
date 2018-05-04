@@ -2,13 +2,14 @@ package main
 
 import (
 	"fyleaf/glog"
-	"fmt"
-	"fyleaf/models/mongodb"
+
+	"time"
+	"fyleaf/utils"
 )
 
 func main() {
 	//flag.Parse()
-	glog.Init("a","log",2)
+	glog.Init("INFO","log",2)
 	    // 1
 
 
@@ -21,20 +22,24 @@ func main() {
 
 	glog.Flush()    // 4
 
+	utils.NewGlogClear("log","log")
+
 
 	//for {
 	//	time.Sleep(10*time.Second)
 	//	newfunc.GetInfo()
 	//	os.Exit(0)
 	//}
+	//
+	//c, err := mongodb.Dial("10.211.55.4", 100)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//defer c.Close()
 
-	c, err := mongodb.Dial("10.211.55.4", 100)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer c.Close()
 
+	time.Sleep(1*time.Hour)
 
 
 

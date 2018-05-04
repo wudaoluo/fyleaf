@@ -15,9 +15,7 @@ func main() {
 	fmt.Println(atomic.LoadInt32(&connCount))
 	n := 0
 	go func() {
-
 		for {
-
 			n++
 			//atomic.StoreInt32(&connCount, 0)
 			atomic.AddInt32(&connCount, 1)
