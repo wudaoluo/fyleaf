@@ -48,6 +48,6 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
 
 
 ### 测试(备注一下)
-go test -run='Test_IniConf'
-go test -file mysql_test.go
-go test
+    go test -run='Test_IniConf'
+    go test -file mysql_test.go
+    go test
