@@ -45,3 +45,9 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
      github.com/golang/glog           //日志库,修改        (改进后融入)
      github.com/json-iterator/go      //json解析
      github.com/Unknwon/goconfig      //ini配置文件
+
+
+### 测试(备注一下)
+go test -run='Test_IniConf'
+go test -file mysql_test.go
+go test

@@ -9,42 +9,35 @@ type Config interface {
 	load()  	           //加载配置文件
 	Reload()               //从本地重新载入配置文件
 	SaveFile()             //保存配置文件到本地
+	Update(string,string,string)
 }
 
 
-
-
-
-type Server struct {
-	Version     string
-	LogLevel    string
-	LogPath     string
-	WSAddr      string
-	CertFile    string
-	KeyFile     string
-	TCPAddr     string
-	MaxConnNum  int
-	ConsolePort int
-	ProfilePath string
-	Debug       bool
-	Mysql       *MysqlInfo
+//这个还没有完成，等写完console再说吧
+type CfgModify interface {
+	Update(string,string,string)   // section,key,value
+	Delete(string,string)          // section,key   int:0, bool:false, string:""
 }
 
-//root:123456@tcp(10.211.55.4:3306)/game
-type MysqlInfo struct {
-	DBname string
-	DBaddr string
-	DBport string
-	DBuser string
-	DBpasswd string
-}
+
+//验证结构体是否实现接口
+var (
+	_ Config = new(iniConf)
+	_ Config = new(jsonConf)
+
+	_ CfgModify = new(iniConf)
+	_ CfgModify = new(jsonConf)
+)
+
 
 
 
 type singleton struct {
 	Cfg  	Server
-	C        Config
+	C       Config
+	CM      CfgModify
 }
+
 
 
 var instance *singleton

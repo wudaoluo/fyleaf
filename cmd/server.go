@@ -33,7 +33,9 @@ func main() {
 	go a.C.Reload()
 	//time.Sleep(time.Second*10)
 	fmt.Println(a.Cfg.Version)
-	a.Cfg.Version = "1.0"
+	a.Cfg.Version = "1.2"
+
+	a.C.SaveFile()
 	//fmt.Println(&a.Cfg.Version)
 
 
