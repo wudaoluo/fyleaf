@@ -44,6 +44,8 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
 ### 2018.5.6 
     * 在每个子包下面创建 init() 并将 errstr 在这初始化
     (使用错误码 提升程序性能,具体提升多少,还需要测试一下)
+    * 添加 etcd   配置文件获取
+    * 添加 consul 版本发现
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)
