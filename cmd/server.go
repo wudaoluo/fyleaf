@@ -5,6 +5,8 @@ import (
 
 	"time"
 	"fyleaf/utils"
+	"fyleaf/conf"
+	"fmt"
 )
 
 func main() {
@@ -23,6 +25,18 @@ func main() {
 	glog.Flush()    // 4
 
 	utils.NewGlogClear("log","log")
+
+
+	a := conf.GetInstance()
+	a.ParseConf("server.json","json")
+	//a.C.Load()
+	go a.C.Reload()
+	//time.Sleep(time.Second*10)
+	fmt.Println(a.Cfg.Version)
+	a.Cfg.Version = "1.0"
+	//fmt.Println(&a.Cfg.Version)
+
+
 
 
 	//for {

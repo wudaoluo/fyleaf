@@ -1,0 +1,16 @@
+{
+  "Version":"1.1",
+  "LogLevel": "debug",
+  "LogPath": "",
+  "TCPAddr": "127.0.0.1:3563",
+  "WSAddr": "127.0.0.1:3653",
+  "ConsolePort": 7771,
+  "MaxConnNum": 20000,
+  "Mysql" : {
+    "DBname": "game",
+    "DBaddr": "10.211.55.4",
+    "DBport": "3306",
+    "DBuser": "root",
+    "DBpasswd": "123456"
+  }
+}
