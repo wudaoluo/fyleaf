@@ -2,7 +2,7 @@
 
 
 ### 难点
-每个包下面的 agent.go 是负责读取数据,写入数据等
+    每个包下面的 agent.go 是负责读取数据,写入数据等
 
 ### 计划实现的功能
   *  log --> glog，按大小分割，每个文件100MB   完成  2018.5.1
@@ -75,7 +75,7 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     go test
 
 
-参与贡献
+### 参与贡献
     1.Fork 本项目
     2.新建 Feat_xxx 分支
     3.提交代码
