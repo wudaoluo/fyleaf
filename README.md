@@ -2,20 +2,21 @@
 
 
 ### 计划实现的功能
-    log --> glog，按大小分割，每个文件100MB   完成  2018.5.1
-    去掉 chanrpc
-    去掉 cluster
-    去掉 recordile
-    增加 etcd
+  *  log --> glog，按大小分割，每个文件100MB   完成  2018.5.1
+  *  去掉 chanrpc
+  *  去掉 cluster
+  *  去掉 recordile
+  * 增加 etcd
     增加 telnet 修改配置文件(方便调试,优先级低),或者 telnet只有看服务器状态权限
-    增加 版本发现(consul+自主接口)
-    增加 goroutine 使用接口,内存使用, cpu使用,运行时间,服务名称版本号   完成  2018.5.1 (cpu暂时没有找到方法收集)
+  *  增加 版本发现(consul+自主接口)  正在写  2018.5.6
+  *  增加 goroutine 使用接口,内存使用, cpu使用,运行时间,服务名称版本号   完成  2018.5.1 (cpu暂时没有找到方法收集)
     增加 计划任务(这个可以通过 telnet 查看)
-    增加 models(mongodb,mysql,redis)  redis等后期在实现
-    增加 配置文件支持的格式 (ini json)       完成  2018.5.5
+  *  增加 models(mongodb,mysql,redis)  redis等后期在实现
+  *  增加 配置文件支持的格式 (ini json)       完成  2018.5.5
     增加 network (copy leaf)
     增加 peer （ws/tcp）
-    所有模块都增加test,和README
+  *  所有模块都增加test,和README
+ 
 
 
 ### 后期计划实现的功能
@@ -44,6 +45,12 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
         a := conf.GetInstance()
     	a.ParseConf("../cmd/server.json","json")  //json,ini支持两种格式
     ```
+    
+### 2018.5.6 
+    * 在每个子包下面创建 init() 并将 errstr 在这初始化
+    (使用错误码 提升程序性能,具体提升多少,还需要测试一下)
+    * 添加 etcd   配置文件获取
+    * 添加 consul 版本发现
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)

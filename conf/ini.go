@@ -14,6 +14,7 @@ type iniConf struct {
 }
 
 
+
 func newiniConf(f string,cfg *Server) *iniConf {
 	return &iniConf{
 		fileName:f,
@@ -27,12 +28,12 @@ func (i *iniConf) load() {
 	var err error
 	i.cfg, err = goconfig.LoadConfigFile(i.fileName)
 	if err != nil {
-		glog.Fatal("第一次载入配置文件失败",err)
+		glog.Fatal(errstr.F_OnceLoad,err)
 	}
 
 	err = i.parse()
 	if err != nil {
-		glog.Fatal("解析ini失败",err)
+		glog.Fatal(errstr.F_INIParse,err)
 	}
 
 	return
@@ -44,7 +45,7 @@ func (i *iniConf) load() {
 func (i *iniConf) parse() error {
 	//开始解析配置文件
 	i.mu.Lock()
-	glog.Info("开始-修改配置文件加锁")
+	glog.Info(errstr.I_Lock)
 	//default
 	i.server.Version = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"Version","1.0")
 	i.server.LogLevel =i.cfg.MustValue(goconfig.DEFAULT_SECTION,"LogLevel","FATAL")
@@ -52,8 +53,8 @@ func (i *iniConf) parse() error {
 	i.server.TCPAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"TCPAddr","127.0.0.1:3654")
 	i.server.MaxConnNum = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"MaxConnNum",20000)
 	i.server.ConsolePort = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"ConsolePort",7771)
-	//
-	////mysql
+
+	//mysql
 	i.server.Mysql.DBname = i.cfg.MustValue("Mysql","DBname")
 	i.server.Mysql.DBaddr = i.cfg.MustValue("Mysql","DBaddr")
 	i.server.Mysql.DBport = i.cfg.MustValue("Mysql","DBport")
@@ -61,7 +62,7 @@ func (i *iniConf) parse() error {
 	i.server.Mysql.DBpasswd = i.cfg.MustValue("Mysql","DBpasswd")
 
 	i.mu.Unlock()
-	glog.Info("完成-修改配置文件解锁")
+	glog.Info(errstr.I_Unlock)
 	return nil
 }
 
@@ -69,7 +70,7 @@ func (i *iniConf) parse() error {
 func (i *iniConf) Reload() {
 	err := i.cfg.Reload()
 	if err !=nil {
-		glog.Error("重新载入配置文件失败",err)
+		glog.Error(errstr.E_Reload,err)
 	}
 
 	//需要赋值
@@ -82,13 +83,13 @@ func (i *iniConf) Reload() {
 func (i *iniConf) SaveFile() {
 	err := goconfig.SaveConfigFile(i.cfg,i.fileName)
 	if err != nil {
-		glog.Error("保存配置到本地失败",err)
+		glog.Error(errstr.E_SaveFaild,err)
 	}
 }
 
 
 func (i *iniConf) Update(section,key,value string) {
-	glog.Info("修改配置值",section,key,value)
+	glog.Info(errstr.I_ModifyKey,section,key,value)
 	i.mu.Lock()
 	i.cfg.SetValue(section,key,value)
 	i.mu.Unlock()
@@ -98,8 +99,8 @@ func (i *iniConf) Update(section,key,value string) {
 func (i *iniConf) Delete(section,key string) {
 	ok := i.cfg.DeleteKey(section, key)
 	if ok {
-		glog.Info("删除key成功")
+		glog.Info(errstr.I_DelKeySuccess)
 	}else {
-		glog.Error("key不存在 or 删除key失败")
+		glog.Error(errstr.I_DelKeyFaild)
 	}
 }

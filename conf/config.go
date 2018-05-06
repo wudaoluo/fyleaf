@@ -60,7 +60,7 @@ func (s *singleton)ParseConf(f,ftype string) {
 	case "ini":
 		s.C =newiniConf(f,&s.Cfg)
 	default:
-		glog.Fatal("不支持类型格式",ftype)
+		glog.Fatal(errstr.F_NotType,ftype)
 	}
 
 	s.C.load()

@@ -28,19 +28,19 @@ func (s *jsonConf) load() {
 	defer s.mu.Unlock()
 	data, err := ioutil.ReadFile(s.fileName)
 	if err != nil {
-		glog.Fatal("第一次载入配置文件失败",err)
+		glog.Fatal(errstr.F_OnceLoad,err)
 	}
 
 	err = jsoniter.Unmarshal(data, &s.server)
 
 	if err != nil {
-		glog.Fatal("解析配置文件格式错误",err)
+		glog.Fatal(errstr.F_JsonParse,err)
 	}
 }
 
 
 func (s *jsonConf) Reload() {
-	glog.Info("reload 配置文件")
+	glog.Info(errstr.I_ReloadConf)
 	s.load()
 }
 
@@ -60,20 +60,20 @@ func (s *jsonConf) SaveFile() {
 
 	saveData,err := jsoniter.MarshalIndent(s.server,"","    ")
 	if err != nil {
-		glog.Error("json解析失败")
+		glog.Error(errstr.E_JsonParse)
 		return
 	}
 
 	temp, err := ioutil.TempFile("/tmp", ".tmp")
 	if err != nil {
-		glog.Error("临时文件创建错误",err)
+		glog.Error(errstr.E_CreateFaild,err)
 		return
 	}
 	defer temp.Close()
 
 	_, err = temp.Write(saveData)
 	if err != nil {
-		glog.Error("配置文件写入临时文件错误",err)
+		glog.Error(errstr.E_WriteFileFaild,err)
 		return
 	}
 
@@ -83,11 +83,11 @@ func (s *jsonConf) SaveFile() {
 	err = os.Rename(temp.Name(),s.fileName)
 
 	if err != nil {
-		glog.Error("copy 配置文件错误",err)
+		glog.Error(errstr.E_CopyConfFaild)
 		return
 	}
 
-	glog.Info("copy配置文件成功")
+	glog.Info(errstr.I_CopyConfSuccess)
 }
 
 
