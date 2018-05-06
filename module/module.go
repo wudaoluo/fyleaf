@@ -9,8 +9,8 @@ import (
 
 type Module interface {
 	OnInit()
-	OnDestroy()
-	Run(closeSig chan bool)
+	OnDestroy(closeSig chan bool)
+	Run()
 }
 
 
@@ -48,7 +48,7 @@ func Init() {
 
 
 func run(m *module) {
-	m.mi.Run(m.closeSig)
+	m.mi.Run()
 	m.wg.Done()
 }
 
@@ -75,5 +75,5 @@ func destroy(m *module) {
 			}
 		}
 	}()
-	m.mi.OnDestroy()
+	m.mi.OnDestroy(m.closeSig)
 }

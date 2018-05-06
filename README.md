@@ -16,6 +16,7 @@
     增加 network (copy leaf)
     增加 peer （ws/tcp）
   *  所有模块都增加test,和README
+   增加 gate //负责启动wss tcp，路由
  
 
 
@@ -51,6 +52,9 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     (使用错误码 提升程序性能,具体提升多少,还需要测试一下)
     * 添加 etcd   配置文件获取
     * 添加 consul 版本发现
+    * 搞fyleaf入口文件
+    * copy leaf module
+    * 改动一些conf代码 可以在获取配置文件之后 初始化glog
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)
@@ -60,7 +64,7 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
      github.com/gorilla/websocket
      github.com/go-sql-driver/mysql
      gopkg.in/mgo.v2
-     github.com/go-redis/redis
+     github.com/go-redis/redis         //后期加入redis支持
 
 ### 测试(备注一下)
     go test -run='Test_IniConf'
