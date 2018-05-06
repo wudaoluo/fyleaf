@@ -1,6 +1,9 @@
 # fyleaf
 
 
+### 难点
+每个包下面的 agent.go 是负责读取数据,写入数据等
+
 ### 计划实现的功能
   *  log --> glog，按大小分割，每个文件100MB   完成  2018.5.1
   *  去掉 chanrpc
@@ -17,7 +20,6 @@
     增加 peer （ws/tcp）
   *  所有模块都增加test,和README
    增加 gate //负责启动wss tcp，路由
- 
 
 
 ### 后期计划实现的功能
@@ -55,6 +57,7 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     * 搞fyleaf入口文件
     * copy leaf module
     * 改动一些conf代码 可以在获取配置文件之后 初始化glog
+    * 开始写 console 和 gate
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)

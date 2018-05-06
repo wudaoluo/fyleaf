@@ -9,8 +9,9 @@ import (
 var cfg = conf.GetInstance()
 
 type Gate struct {
-	wsServer *network.WSServer
-	tcpServer *network.TCPServer
+	wsServer 	*network.WSServer
+	tcpServer 	*network.TCPServer
+	Processor   network.Processor
 
 }
 
@@ -18,11 +19,26 @@ type Gate struct {
 // Run 启动 wss/tcp_sever
 func (gate *Gate) Run(closeSig chan bool) {
 	if cfg.Cfg.WSAddr != "" {
-
+		gate.wsServer.NewAgent = func(conn *network.WSConn) network.Agent {
+			a := &agent{conn: conn, gate: gate}
+			//TODO 这行代码的作用
+			//if gate.AgentChanRPC != nil {
+			//	gate.AgentChanRPC.Go("NewAgent", a)
+			//}
+			return a
+		}
 	}
 
 
 	if cfg.Cfg.TCPAddr != "" {
+		gate.tcpServer.NewAgent = func(conn *network.TCPConn) network.Agent {
+			a := &agent{conn: conn, gate: gate}
+			//TODO 这行代码的作用
+			//if gate.AgentChanRPC != nil {
+			//	gate.AgentChanRPC.Go("NewAgent", a)
+			//}
+			return a
+		}
 
 	}
 
