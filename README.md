@@ -18,6 +18,11 @@
     所有模块都增加test,和README
 
 
+### 后期计划实现的功能
+    goroutine池
+    通过tcp接口查看程序运行状态
+
+
 ### 计划使用teleport 的设计方式
 https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_framework.png
 
@@ -45,9 +50,19 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
      github.com/golang/glog           //日志库,修改        (改进后融入)
      github.com/json-iterator/go      //json解析
      github.com/Unknwon/goconfig      //ini配置文件
-
+     github.com/gorilla/websocket
+     github.com/go-sql-driver/mysql
+     gopkg.in/mgo.v2
+     github.com/go-redis/redis
 
 ### 测试(备注一下)
     go test -run='Test_IniConf'
     go test -file mysql_test.go
     go test
+
+
+参与贡献
+    1.Fork 本项目
+    2.新建 Feat_xxx 分支
+    3.提交代码
+    4.新建 Pull Request
