@@ -1,7 +1,7 @@
 {
     "Version": "1.121",
-    "LogLevel": "debug",
-    "LogPath": "",
+    "LogLevel": "INFO",
+    "LogPath" : "log",
     "WSAddr": "127.0.0.1:3653",
     "CertFile": "",
     "KeyFile": "",

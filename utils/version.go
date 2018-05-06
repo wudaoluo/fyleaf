@@ -1,11 +1,13 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
 
-const  version = "fyleaf version:0.1"
+const  version = "0.1"
 
 func PrintVersion() {
-	fmt.Println("version:", version)
+	fmt.Println("fyleaf version:", version)
 }
 
 func ReturnVersion() string{

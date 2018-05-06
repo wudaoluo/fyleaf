@@ -28,20 +28,35 @@ func (s *jsonConf) load() {
 	defer s.mu.Unlock()
 	data, err := ioutil.ReadFile(s.fileName)
 	if err != nil {
-		glog.Fatal(errstr.F_OnceLoad,err)
+		panic(errstr.F_OnceLoad)
+
 	}
 
 	err = jsoniter.Unmarshal(data, &s.server)
 
 	if err != nil {
-		glog.Fatal(errstr.F_JsonParse,err)
+		panic(errstr.F_JsonParse)
+
 	}
 }
 
 
 func (s *jsonConf) Reload() {
 	glog.Info(errstr.I_ReloadConf)
-	s.load()
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	data, err := ioutil.ReadFile(s.fileName)
+	if err != nil {
+		glog.Error(errstr.E_OnceLoad)
+	}
+
+	err = jsoniter.Unmarshal(data, &s.server)
+
+	if err != nil {
+		glog.Error(errstr.E_JsonParse)
+
+	}
+
 }
 
 

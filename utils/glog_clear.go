@@ -18,7 +18,7 @@ type gclear struct {
 }
 
 //默认保留7天 ,3小时检查一次
-func NewGlogClear(path,suffix string,t ...time.Duration) *gclear {
+func NewGlogClear(path string,t ...time.Duration) *gclear {
 	reserve := time.Hour*24*7
 	interval := time.Hour*3
 	switch len(t) {
@@ -34,7 +34,7 @@ func NewGlogClear(path,suffix string,t ...time.Duration) *gclear {
 
 	c:= &gclear{
 		path:path,
-		suffix:suffix,
+		suffix:"log",
 		interval:interval,
 		reserve:reserve,
 		c:make(chan struct{}),

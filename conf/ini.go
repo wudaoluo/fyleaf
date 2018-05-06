@@ -45,10 +45,12 @@ func (i *iniConf) load() {
 func (i *iniConf) parse() error {
 	//开始解析配置文件
 	i.mu.Lock()
-	glog.Info(errstr.I_Lock)
+	defer i.mu.Unlock()
+	//glog.Info(errstr.I_Lock)
 	//default
 	i.server.Version = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"Version","1.0")
 	i.server.LogLevel =i.cfg.MustValue(goconfig.DEFAULT_SECTION,"LogLevel","FATAL")
+	i.server.LogPath =i.cfg.MustValue(goconfig.DEFAULT_SECTION,"LogPath","log")
 	i.server.WSAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"WSAddr","127.0.0.1:3653")
 	i.server.TCPAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"TCPAddr","127.0.0.1:3654")
 	i.server.MaxConnNum = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"MaxConnNum",20000)
@@ -61,8 +63,8 @@ func (i *iniConf) parse() error {
 	i.server.Mysql.DBuser = i.cfg.MustValue("Mysql","DBuser")
 	i.server.Mysql.DBpasswd = i.cfg.MustValue("Mysql","DBpasswd")
 
-	i.mu.Unlock()
-	glog.Info(errstr.I_Unlock)
+
+	//glog.Info(errstr.I_Unlock)
 	return nil
 }
 
