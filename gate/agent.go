@@ -2,9 +2,9 @@ package gate
 
 import (
 	"net"
-	"fyleaf/network"
+	"github.com/wudaoluo/fyleaf/network"
 	"reflect"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 )
 
 

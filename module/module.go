@@ -3,8 +3,8 @@ package module
 import (
 	"sync"
 	"runtime"
-	"fyleaf/glog"
-	"fyleaf/conf"
+	"github.com/wudaoluo/fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/conf"
 )
 
 type Module interface {

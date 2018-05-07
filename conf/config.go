@@ -2,7 +2,7 @@ package conf
 
 import (
 	"sync"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 )
 
 type Config interface {

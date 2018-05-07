@@ -2,7 +2,7 @@ package mongodb_test
 
 import (
 	"fmt"
-	"fyleaf/models/mongodb"
+	"github.com/wudaoluo/fyleaf/models/mongodb"
 	"gopkg.in/mgo.v2"
 )
 

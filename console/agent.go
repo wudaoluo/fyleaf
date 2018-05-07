@@ -2,7 +2,7 @@ package console
 
 import (
 	"bufio"
-	"fyleaf/network"
+	"github.com/wudaoluo/fyleaf/network"
 )
 
 

@@ -2,7 +2,7 @@ package utils
 
 import (
 	"time"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 	"io/ioutil"
 	"os"
 	"strings"

@@ -1,11 +1,11 @@
 package newfunc
 
 import (
-	"fyleaf/newfunc/tool"
+	"github.com/wudaoluo/fyleaf/newfunc/tool"
 	"time"
 	"fmt"
 	"runtime"
-	"fyleaf/utils"
+	"github.com/wudaoluo/fyleaf/utils"
 )
 
 //参考https://github.com/gogits/gogs

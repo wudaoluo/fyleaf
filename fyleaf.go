@@ -1,14 +1,14 @@
 package fyleaf
 
 import (
-	"fyleaf/module"
+	"github.com/wudaoluo/fyleaf/module"
+	"github.com/wudaoluo/fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/utils"
+	"github.com/wudaoluo/fyleaf/console"
+	"github.com/wudaoluo/fyleaf/conf"
 	"os"
 	"os/signal"
 	"syscall"
-	"fyleaf/glog"
-	"fyleaf/utils"
-	"fyleaf/console"
-	"fyleaf/conf"
 	"flag"
 	"fmt"
 )

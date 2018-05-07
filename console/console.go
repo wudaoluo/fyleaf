@@ -1,8 +1,8 @@
 package console
 
 import (
-	"fyleaf/conf"
-	"fyleaf/network"
+	"github.com/wudaoluo/fyleaf/conf"
+	"github.com/wudaoluo/fyleaf/network"
 )
 
 var cfg = conf.GetInstance()

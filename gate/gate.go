@@ -1,9 +1,9 @@
 package gate
 
 import (
-	"fyleaf/conf"
-	"fyleaf/network"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/conf"
+	"github.com/wudaoluo/fyleaf/network"
+	"github.com/wudaoluo/fyleaf/glog"
 )
 
 var cfg = conf.GetInstance()

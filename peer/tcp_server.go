@@ -2,7 +2,7 @@ package peer
 
 import (
 	"net"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 	"sync"
 	"sync/atomic"
 	"time"

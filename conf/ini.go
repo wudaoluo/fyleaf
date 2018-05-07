@@ -3,7 +3,7 @@ package conf
 import (
 	"sync"
 	"github.com/Unknwon/goconfig"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 )
 
 type iniConf struct {

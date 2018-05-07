@@ -6,7 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"sync"
 	"time"
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 )
 
 // session

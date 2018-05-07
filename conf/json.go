@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"fyleaf/glog"
+	"github.com/wudaoluo/fyleaf/glog"
 	"io/ioutil"
 	"sync"
 	"github.com/json-iterator/go"
