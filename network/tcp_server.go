@@ -1,22 +1,19 @@
 package network
 
 import (
-	"github.com/name5566/leaf/log"
 	"net"
+	"github.com/wudaoluo/fyleaf/glog"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
 type TCPServer struct {
-	Addr            string
-	MaxConnNum      int
-	PendingWriteNum int
 	NewAgent        func(*TCPConn) Agent
 	ln              net.Listener
 	conns           ConnSet
-	mutexConns      sync.Mutex
-	wgLn            sync.WaitGroup
-	wgConns         sync.WaitGroup
+	mutexConns      sync.RWMutex
+	connCount       int32			//当前连接数
 
 	// msg parser
 	LenMsgLen    int
@@ -26,28 +23,38 @@ type TCPServer struct {
 	msgParser    *MsgParser
 }
 
+
+
+
+
+//原子性
+/*
+初始化 atomic.StoreInt32(&connCount, 0)
+获取 atomic.LoadInt32(&connCount)
+增加atomic.AddInt32(&connCount, 1)
+减少 atomic.AddInt32(&connCount, -1)
+
+*/
+
 func (server *TCPServer) Start() {
 	server.init()
 	go server.run()
 }
 
+
 func (server *TCPServer) init() {
-	ln, err := net.Listen("tcp", server.Addr)
+	ln, err := net.Listen("tcp", cfg.Cfg.TCPAddr)
 	if err != nil {
-		log.Fatal("%v", err)
+		glog.Fatal("%v", err)
 	}
 
-	if server.MaxConnNum <= 0 {
-		server.MaxConnNum = 100
-		log.Release("invalid MaxConnNum, reset to %v", server.MaxConnNum)
-	}
-	if server.PendingWriteNum <= 0 {
-		server.PendingWriteNum = 100
-		log.Release("invalid PendingWriteNum, reset to %v", server.PendingWriteNum)
-	}
-	if server.NewAgent == nil {
-		log.Fatal("NewAgent must not be nil")
-	}
+	glog.Info("tcp server listening addr ",cfg.Cfg.TCPAddr)
+	//if server.NewAgent == nil {
+	//	glog.Fatal("NewAgent must not be nil")
+	//}
+
+
+	atomic.StoreInt32(&server.connCount, 0)
 
 	server.ln = ln
 	server.conns = make(ConnSet)
@@ -57,12 +64,11 @@ func (server *TCPServer) init() {
 	msgParser.SetMsgLen(server.LenMsgLen, server.MinMsgLen, server.MaxMsgLen)
 	msgParser.SetByteOrder(server.LittleEndian)
 	server.msgParser = msgParser
+
 }
 
-func (server *TCPServer) run() {
-	server.wgLn.Add(1)
-	defer server.wgLn.Done()
 
+func (server *TCPServer) run() {
 	var tempDelay time.Duration
 	for {
 		conn, err := server.ln.Accept()
@@ -76,7 +82,7 @@ func (server *TCPServer) run() {
 				if max := 1 * time.Second; tempDelay > max {
 					tempDelay = max
 				}
-				log.Release("accept error: %v; retrying in %v", err, tempDelay)
+				glog.Warning("accept error: %v; retrying in %v", err, tempDelay)
 				time.Sleep(tempDelay)
 				continue
 			}
@@ -84,44 +90,57 @@ func (server *TCPServer) run() {
 		}
 		tempDelay = 0
 
-		server.mutexConns.Lock()
-		if len(server.conns) >= server.MaxConnNum {
-			server.mutexConns.Unlock()
+		//在同一个goroutine，可以减少并发的竞争
+		//连接超过最大值，释放连接
+		if atomic.LoadInt32(&server.connCount) >= cfg.Cfg.MaxConnNum {
 			conn.Close()
-			log.Debug("too many connections")
+			glog.Warning("too many connections")
 			continue
 		}
+
+		atomic.AddInt32(&server.connCount, 1)
+
+
+		//把这个当做 session 池吧
 		server.conns[conn] = struct{}{}
-		server.mutexConns.Unlock()
 
-		server.wgConns.Add(1)
+		go server.handle(conn)
 
-		tcpConn := newTCPConn(conn, server.PendingWriteNum, server.msgParser)
-		agent := server.NewAgent(tcpConn)
-		go func() {
-			agent.Run()
-
-			// cleanup
-			tcpConn.Close()
-			server.mutexConns.Lock()
-			delete(server.conns, conn)
-			server.mutexConns.Unlock()
-			agent.OnClose()
-
-			server.wgConns.Done()
-		}()
 	}
+
 }
+
+
+func (server *TCPServer) handle(conn net.Conn) {
+
+	server.conns[conn] = struct{}{}
+
+	tcpConn := newTCPConn(conn, server.msgParser)
+	agent := server.NewAgent(tcpConn)
+
+
+	agent.Run()
+
+	// cleanup
+	tcpConn.Close()
+
+	//删除 map 中的连接
+	server.mutexConns.Lock()
+	delete(server.conns, conn)
+	server.mutexConns.Unlock()
+
+	agent.OnClose()
+
+}
+
 
 func (server *TCPServer) Close() {
 	server.ln.Close()
-	server.wgLn.Wait()
-
+	//清除连接池
 	server.mutexConns.Lock()
 	for conn := range server.conns {
 		conn.Close()
 	}
 	server.conns = nil
 	server.mutexConns.Unlock()
-	server.wgConns.Wait()
 }

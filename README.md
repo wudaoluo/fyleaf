@@ -58,6 +58,13 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     * copy leaf module
     * 改动一些conf代码 可以在获取配置文件之后 初始化glog
     * 开始写 console 和 gate
+    
+    
+### 2018.5.7 
+    * json.go 增加默认值,加载 ini 和 json配置,尽量让程序行为一直
+    * 改动 tcp_server,使用atomic.LoadInt32 代替len(server.conns)
+    * 注释 wss_server
+    
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)

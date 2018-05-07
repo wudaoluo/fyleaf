@@ -15,7 +15,7 @@ type Server struct {
 	CertFile    string
 	KeyFile     string
 	TCPAddr     string
-	MaxConnNum  int
+	MaxConnNum  int32
 	ConsolePort int
 	ProfilePath string
 	Debug       bool

@@ -38,7 +38,10 @@ func (s *jsonConf) load() {
 		panic(errstr.F_JsonParse)
 
 	}
+
+	s.defaultValue()
 }
+
 
 
 func (s *jsonConf) Reload() {
@@ -57,6 +60,44 @@ func (s *jsonConf) Reload() {
 
 	}
 
+	s.defaultValue()
+
+}
+
+/*
+	i.server.Version = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"Version","1.0")
+	i.server.LogLevel =i.cfg.MustValue(goconfig.DEFAULT_SECTION,"LogLevel","FATAL")
+	i.server.LogPath =i.cfg.MustValue(goconfig.DEFAULT_SECTION,"LogPath","log")
+	i.server.WSAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"WSAddr","127.0.0.1:3653")
+	i.server.TCPAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"TCPAddr","127.0.0.1:3654")
+	i.server.MaxConnNum = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"MaxConnNum",100)
+	i.server.ConsolePort = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"ConsolePort",0)
+
+*/
+func (s *jsonConf) defaultValue() {
+	if s.server.Version == "" {
+		s.server.Version = "1.0"
+	}
+
+	if s.server.LogLevel == "" {
+		s.server.LogLevel = "FATAL"
+	}
+
+	if s.server.LogPath == "" {
+		s.server.LogPath = "log"
+	}
+
+	if s.server.WSAddr == "" {
+		s.server.WSAddr = "127.0.0.1:3653"
+	}
+
+	if s.server.TCPAddr == "" {
+		s.server.TCPAddr = "127.0.0.1:3654"
+	}
+
+	if s.server.MaxConnNum <= 0 {
+		s.server.MaxConnNum = 100
+	}
 }
 
 

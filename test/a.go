@@ -20,9 +20,9 @@ func main() {
 			//atomic.StoreInt32(&connCount, 0)
 			atomic.AddInt32(&connCount, 1)
 
-			if atomic.LoadInt32(&connCount) > 1000000000 {
-				return
-			}
+			//if atomic.LoadInt32(&connCount) > 1000000000 {
+			//	return
+			//}
 			//go func() {
 			//	n++
 			//	//atomic.StoreInt32(&connCount, 0)

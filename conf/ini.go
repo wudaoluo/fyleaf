@@ -53,7 +53,7 @@ func (i *iniConf) parse() error {
 	i.server.LogPath =i.cfg.MustValue(goconfig.DEFAULT_SECTION,"LogPath","log")
 	i.server.WSAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"WSAddr","127.0.0.1:3653")
 	i.server.TCPAddr = i.cfg.MustValue(goconfig.DEFAULT_SECTION,"TCPAddr","127.0.0.1:3654")
-	i.server.MaxConnNum = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"MaxConnNum",20000)
+	i.server.MaxConnNum = int32(i.cfg.MustInt(goconfig.DEFAULT_SECTION,"MaxConnNum",100))
 	i.server.ConsolePort = i.cfg.MustInt(goconfig.DEFAULT_SECTION,"ConsolePort",0)
 
 	//mysql

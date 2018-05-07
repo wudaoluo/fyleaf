@@ -16,10 +16,10 @@ type TCPConn struct {
 	msgParser *MsgParser
 }
 
-func newTCPConn(conn net.Conn, pendingWriteNum int, msgParser *MsgParser) *TCPConn {
+func newTCPConn(conn net.Conn, msgParser *MsgParser) *TCPConn {
 	tcpConn := new(TCPConn)
 	tcpConn.conn = conn
-	tcpConn.writeChan = make(chan []byte, pendingWriteNum)
+	tcpConn.writeChan = make(chan []byte, 1000)
 	tcpConn.msgParser = msgParser
 
 	go func() {
