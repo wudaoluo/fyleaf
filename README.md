@@ -10,6 +10,7 @@
   *  去掉 cluster
   *  去掉 recordile
   * 增加 etcd
+  * 增加 tcp 接口,用来获取程序运行状态(telnet 分析工具go tool pprof 20180508_22_40_42.gprof)
     增加 telnet 修改配置文件(方便调试,优先级低),或者 telnet只有看服务器状态权限
   *  增加 版本发现(consul+自主接口)  正在写  2018.5.6
   *  增加 goroutine 使用接口,内存使用, cpu使用,运行时间,服务名称版本号   完成  2018.5.1 (cpu暂时没有找到方法收集)
@@ -65,6 +66,9 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     * 改动 tcp_server,使用atomic.LoadInt32 代替len(server.conns)
     * 注释 wss_server
     
+    
+### 2018.5.8 
+    增加 tcp 接口,用来获取程序运行状态
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)
@@ -81,6 +85,10 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     go test -file mysql_test.go
     go test
 
+
+### *.gprof 分析
+    go tool pprof 20180508_22_40_42.gprof
+    具体使用 google pprof
 
 ### 参与贡献
     1.Fork 本项目

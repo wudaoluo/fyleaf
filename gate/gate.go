@@ -1,12 +1,9 @@
 package gate
 
 import (
-	"github.com/wudaoluo/fyleaf/conf"
 	"github.com/wudaoluo/fyleaf/network"
 	"github.com/wudaoluo/fyleaf/glog"
 )
-
-var cfg = conf.GetInstance()
 
 type Gate struct {
 	//wsServer 	*network.WSServer
@@ -31,6 +28,7 @@ func (gate *Gate) Run(closeSig chan bool) {
 
 
 	if cfg.Cfg.TCPAddr != "" {
+		gate.tcpServer.Addr = cfg.Cfg.TCPAddr
 		gate.tcpServer.NewAgent = func(conn *network.TCPConn) network.Agent {
 			a := &agent{conn: conn, gate: gate}
 			//TODO 这行代码的作用

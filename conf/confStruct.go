@@ -5,7 +5,8 @@ package conf
 //不太适合修改的值 或者 基本不会改动的值
 const LenStackBuf = 4096
 const LogV int32 = 3
-
+const ConsolePrompt string = "fyLeaf# "
+const ProfilePath string = ""
 
 type Server struct {
 	Version     string

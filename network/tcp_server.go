@@ -9,6 +9,7 @@ import (
 )
 
 type TCPServer struct {
+	Addr            string
 	NewAgent        func(*TCPConn) Agent
 	ln              net.Listener
 	conns           ConnSet
@@ -43,12 +44,12 @@ func (server *TCPServer) Start() {
 
 
 func (server *TCPServer) init() {
-	ln, err := net.Listen("tcp", cfg.Cfg.TCPAddr)
+	ln, err := net.Listen("tcp", server.Addr)
 	if err != nil {
 		glog.Fatal("%v", err)
 	}
 
-	glog.Info("tcp server listening addr ",cfg.Cfg.TCPAddr)
+	glog.Info("tcp server listening addr ",server.Addr)
 	//if server.NewAgent == nil {
 	//	glog.Fatal("NewAgent must not be nil")
 	//}
