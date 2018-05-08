@@ -26,7 +26,7 @@ var arg = new(argStruct)
 
 func init() {
 	flag.BoolVar(&arg.version,"version",false,"print version")
-	flag.StringVar(&arg.configfile,"c","fyleaf.ini","specify config file")
+	flag.StringVar(&arg.configfile,"c","/Users/carlo/program/go-project/src/github.com/wudaoluo/fyleaf/cmd/server.ini","specify config file")
 	flag.StringVar(&arg.configtype,"type","ini","ini|json")
 	flag.IntVar(&arg.logv,"V",3,"glog.V的级别")
 }

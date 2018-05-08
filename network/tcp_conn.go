@@ -11,7 +11,7 @@ type ConnSet map[net.Conn]struct{}
 type TCPConn struct {
 	sync.Mutex
 	conn      net.Conn
-	writeChan chan []byte
+	writeChan chan []byte    //TODO 要将这个去掉，不能用chan这个鬼东西
 	closeFlag bool
 	msgParser *MsgParser
 }
