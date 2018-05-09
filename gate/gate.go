@@ -7,7 +7,7 @@ import (
 
 type Gate struct {
 	//wsServer 	*network.WSServer
-	tcpServer 	*network.TCPServer
+	TCPServer 	*network.TCPServer
 	Processor   network.Processor
 
 }
@@ -26,10 +26,9 @@ func (gate *Gate) Run(closeSig chan bool) {
 	//	}
 	//}
 
-
 	if cfg.Cfg.TCPAddr != "" {
-		gate.tcpServer.Addr = cfg.Cfg.TCPAddr
-		gate.tcpServer.NewAgent = func(conn *network.TCPConn) network.Agent {
+		gate.TCPServer.Addr = cfg.Cfg.TCPAddr
+		gate.TCPServer.NewAgent = func(conn *network.TCPConn) network.Agent {
 			a := &agent{conn: conn, gate: gate}
 			//TODO 这行代码的作用
 			//if gate.AgentChanRPC != nil {
@@ -46,9 +45,9 @@ func (gate *Gate) Run(closeSig chan bool) {
 	//	gate.wsServer.Start()
 	//}
 
-	if gate.tcpServer != nil {
+	if gate.TCPServer != nil {
 		glog.Info("启动tcp 监听地址:",cfg.Cfg.TCPAddr)
-		gate.tcpServer.Start()
+		gate.TCPServer.Start()
 	}
 }
 
@@ -61,9 +60,9 @@ func (gate *Gate) OnDestroy(closeSig chan bool) {
 	//	glog.Warning("关闭wss server")
 	//	gate.wsServer.Close()
 	//}
-	if gate.tcpServer != nil {
+	if gate.TCPServer != nil {
 		glog.Warning("关闭tcp server")
-		gate.tcpServer.Close()
+		gate.TCPServer.Close()
 	}
 
 }

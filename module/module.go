@@ -10,7 +10,7 @@ import (
 type Module interface {
 	OnInit()
 	OnDestroy(closeSig chan bool)
-	Run()
+	Run(closeSig chan bool)
 }
 
 
@@ -48,7 +48,7 @@ func Init() {
 
 
 func run(m *module) {
-	m.mi.Run()
+	m.mi.Run(m.closeSig)
 	m.wg.Done()
 }
 
@@ -66,13 +66,10 @@ func Destroy() {
 func destroy(m *module) {
 	defer func() {
 		if r := recover(); r != nil {
-			if conf.LenStackBuf > 0 {
-				buf := make([]byte, conf.LenStackBuf)
-				l := runtime.Stack(buf, false)
-				glog.Error("%v: %s", r, buf[:l])
-			} else {
-				glog.Error("%v", r)
-			}
+			buf := make([]byte, conf.LenStackBuf)
+			l := runtime.Stack(buf, false)
+			glog.Error("%v: %s", r, buf[:l])
+
 		}
 	}()
 	m.mi.OnDestroy(m.closeSig)

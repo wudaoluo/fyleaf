@@ -69,6 +69,9 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     
 ### 2018.5.8 
     增加 tcp 接口,用来获取程序运行状态
+    
+### 2018.5.9
+    tcp server 可以启动了
 
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)
