@@ -46,7 +46,6 @@ func (gate *Gate) Run(closeSig chan bool) {
 	//}
 
 	if gate.TCPServer != nil {
-		glog.Info("启动tcp 监听地址:",cfg.Cfg.TCPAddr)
 		gate.TCPServer.Start()
 	}
 }
