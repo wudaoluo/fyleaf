@@ -73,6 +73,16 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
 ### 2018.5.9
     tcp server 可以启动了
 
+
+### 2018.5.10 
+    定义数据格式,抛弃 leaf的chanrpc
+    改为,这样可以同时支持 wss+tcp+udp 等
+    var code struct {
+        c : uint16  //0-65535
+    } 
+    var data struct {}
+    
+    
 ### 使用到库
      github.com/xuri/glc              //glog日志清除,修改  (改进后融入)
      github.com/golang/glog           //日志库,修改        (改进后融入)
@@ -93,8 +103,12 @@ https://raw.githubusercontent.com/henrylee2cn/teleport/master/doc/teleport_frame
     go tool pprof 20180508_22_40_42.gprof
     具体使用 google pprof
 
+
+
 ### 参与贡献
     1.Fork 本项目
     2.新建 Feat_xxx 分支
     3.提交代码
     4.新建 Pull Request
+    
+    
