@@ -10,6 +10,14 @@ var (
 	//ChanRPC  = skeleton.ChanRPCServer
 )
 
+
+/*
+	OnInit()
+	OnDestroy(closeSig chan bool)  //关闭的操作
+	Run(closeSig chan bool)         //
+
+*/
+
 type Module struct {
 	*module.Skeleton
 }
