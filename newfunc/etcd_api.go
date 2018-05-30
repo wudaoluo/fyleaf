@@ -14,8 +14,6 @@ import (
 )
 
 
-
-
 var process_start_time string
 
 //虚拟目录,每次启动先将etcd 数据放到这里,在删除 etcd_dir,再mv 这个目录 etcd_dir
